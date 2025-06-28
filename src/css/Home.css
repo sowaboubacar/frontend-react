@@ -1,0 +1,116 @@
+/* Container principal */
+.home-container {
+  min-height: 100vh;
+  background: linear-gradient(90deg, #2c1053, #3b0a62, #000000);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Titre principal */
+.home-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  letter-spacing: 2px;
+  text-shadow: 0 3px 10px rgba(75, 0, 130, 0.7);
+}
+
+.highlight {
+  color: #eeebf3; /* violet/luxe */
+  text-shadow: 0 3px 15px #ab7fff;
+}
+
+/* Description */
+.home-description {
+  font-size: 1.25rem;
+  max-width: 600px;
+  margin-bottom: 40px;
+  line-height: 1.6;
+  opacity: 0.85;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+/* Conteneur des boutons */
+.home-buttons {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Styles boutons communs */
+.btn {
+  padding: 14px 36px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(91, 14, 235, 0.4);
+  user-select: none;
+}
+
+/* Bouton primaire (Se connecter) */
+.btn-primary {
+  background-color: #6f42c1;
+  color: white;
+  border: 2px solid #6f42c1;
+}
+
+.btn-primary:hover {
+  background-color: #854de8;
+  box-shadow: 0 7px 20px rgba(133, 77, 232, 0.7);
+  border-color: #854de8;
+}
+
+/* Bouton secondaire (Créer un compte) */
+.btn-secondary {
+  background-color: transparent;
+  color: #ab7fff;
+  border: 2px solid #ab7fff;
+  box-shadow: inset 0 0 10px #ab7fff;
+}
+
+.btn-secondary:hover {
+  background-color: #ab7fff;
+  color: #2c1053;
+  box-shadow: 0 7px 20px rgba(171, 127, 255, 0.9);
+  border-color: #ab7fff;
+}
+
+/* Footer */
+.home-footer {
+  margin-top: 80px;
+  font-size: 0.85rem;
+  color: #a49ecb;
+  opacity: 0.7;
+  text-shadow: none;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .home-title {
+    font-size: 2.4rem;
+  }
+  
+  .home-description {
+    font-size: 1rem;
+    max-width: 90%;
+  }
+  
+  .btn {
+    padding: 12px 28px;
+    font-size: 1rem;
+  }
+  
+  .home-buttons {
+    gap: 16px;
+  }
+}

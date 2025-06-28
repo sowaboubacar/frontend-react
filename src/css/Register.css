@@ -1,0 +1,54 @@
+/* Conteneur principal */
+.register-container {
+  max-width: 450px;
+  margin: 5rem auto;
+  padding: 3rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+/* Titre */
+.register-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  color: #1f2937;
+  margin-bottom: 2rem;
+}
+
+/* Champs du formulaire */
+.register-input {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: 0.2s ease;
+}
+
+.register-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+  outline: none;
+}
+
+/* Bouton */
+.register-button {
+  width: 100%;
+  background: linear-gradient(to right, #3b82f6, #2563eb);
+  color: white;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.register-button:hover {
+  opacity: 0.95;
+  transform: translateY(-2px);
+}

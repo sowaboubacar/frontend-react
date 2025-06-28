@@ -1,0 +1,53 @@
+/* Style principal du formulaire de login */
+.login-container {
+  max-width: 400px;
+  margin: 5rem auto;
+  padding: 3rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.login-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  color: #111827;
+  margin-bottom: 2rem;
+}
+
+/* Champs du formulaire */
+.login-input {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+  outline: none;
+}
+
+/* Bouton */
+.login-button {
+  width: 100%;
+  background: linear-gradient(to right, #6366f1, #3b82f6);
+  color: #fff;
+  padding: 0.9rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.login-button:hover {
+  opacity: 0.95;
+  transform: translateY(-2px);
+}
