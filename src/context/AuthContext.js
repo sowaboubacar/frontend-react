@@ -4,37 +4,50 @@ import axios from 'axios';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUserState] = useState(null);
 
-  // Charger l'utilisateur + token depuis localStorage au démarrage
+  // Synchroniser le user avec localStorage au démarrage
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     const storedToken = localStorage.getItem('token');
     if (storedUser && storedToken) {
-      setUser({
-        ...JSON.parse(storedUser),
+      const parsedUser = JSON.parse(storedUser);
+      setUserState({
+        ...parsedUser,
+        _id: parsedUser._id || parsedUser.id, // <-- Ajouté pour assurer que _id existe
         token: storedToken,
       });
     }
   }, []);
+
+  // Wrapper pour setUser : toujours sauvegarder dans localStorage
+  const setUser = (updatedUser) => {
+    if (updatedUser) {
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      if (updatedUser.token) {
+        localStorage.setItem('token', updatedUser.token);
+      }
+    } else {
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+    }
+    setUserState(updatedUser);
+  };
 
   const login = async (email, password) => {
     const res = await axios.post('http://127.0.0.1:5000/api/auth/login', {
       email,
       password,
     });
-    localStorage.setItem('token', res.data.token);
-    localStorage.setItem('user', JSON.stringify(res.data.user));
-    setUser({
+    const updatedUser = {
       ...res.data.user,
       token: res.data.token,
-    });
+    };
+    setUser(updatedUser);
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    setUser(null);
+    setUser(null); // cela supprime aussi dans localStorage
   };
 
   const register = async (formData) => {

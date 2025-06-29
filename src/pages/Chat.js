@@ -3,11 +3,13 @@ import { useParams, Link } from 'react-router-dom';
 import socketClient from '../socket';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+
 import '../css/Chat.css';
 
 export default function Chat() {
   const { roomId } = useParams();
-  const { user, logout } = useAuth();
+  const { user, logout, setUser } = useAuth();
+
 
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -185,17 +187,49 @@ export default function Chat() {
     }
   };
 
-  // Profil
-  const handleProfileUpdate = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.put(`http://127.0.0.1:5000/api/users/${user._id}`, profileForm);
-      alert('Profil mis à jour');
-      setEditProfile(false);
-    } catch {
-      alert('Erreur mise à jour profil');
-    }
-  };
+
+
+    // ✅ Mise à jour sécurisée du profil avec token
+ const secureHandleProfileUpdate = async (e) => {
+  e.preventDefault();
+
+  console.log("User au moment de update profil:", user);
+  if (!user || !(user._id || user.id)) {
+    alert("Impossible de modifier le profil. Veuillez vous reconnecter.");
+    return;
+  }
+
+  try {
+    const token = localStorage.getItem('token');
+    const userId = user._id || user.id;
+
+    const res = await axios.patch(
+      `http://127.0.0.1:5000/api/users/${userId}/full`,
+      profileForm,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    alert('Profil mis à jour avec succès.');
+    setEditProfile(false);
+
+    // Mise à jour locale avec le user renvoyé par le serveur
+    const updatedUser = res.data.user || { ...profileForm };
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+    setProfileForm({
+      username: updatedUser.username,
+      email: updatedUser.email,
+    });
+    setUser(updatedUser);
+  } catch (err) {
+    console.error('Erreur mise à jour profil:', err.response?.data || err.message);
+    alert(err.response?.data?.message || 'Erreur mise à jour profil');
+  }
+};
+
 
   // Création de salon
   const handleCreateRoom = async (e) => {
@@ -262,7 +296,8 @@ export default function Chat() {
           </div>
 
           {editProfile && (
-            <form onSubmit={handleProfileUpdate} className="edit-form">
+            <form onSubmit={secureHandleProfileUpdate} className="edit-form">
+
               <h4>Modifier le profil</h4>
               <input
                 type="text"
@@ -344,7 +379,7 @@ export default function Chat() {
         {/* Zone principale : affichage des messages et saisie */}
         <div className="chat-main">
           <div className="messages">
-            {loadingMessages && <p>Chargement des messages...</p>}
+            {loadingMessages && <p>Selectionner un salon</p>}
             {messages
               .filter((msg) => !blockedUsers.includes(String(msg.author._id)))
               .map((msg) => (
